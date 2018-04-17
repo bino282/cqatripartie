@@ -17,7 +17,7 @@ except Exception as e:
     print(" not found checkpoint")
 print('----------------start training --------------------------')
 for i in range(settings.epoche):
-	print('epoche : '+str(i))
+    print('epoche : '+str(i))
     last_time=time.time()
     total_loss=0
     list_file_data= os.listdir("./data_tensor/")
