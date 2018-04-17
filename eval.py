@@ -13,7 +13,7 @@ saver=tf.train.Saver()
 sess.run(tf.global_variables_initializer())
 sess.run(tf.local_variables_initializer())
 try:
-    saver.restore(sess,'./model/model/model.ckpt')
+    saver.restore(sess,'./model/model.ckpt')
     print('load from past checkpoint')
 except Exception as e:
     print(" not found checkpoint")
