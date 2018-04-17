@@ -6,7 +6,7 @@ import numpy as np
 import time
 import os
 from random import shuffle
-sess=tf.InteractiveSession(config=tf.ConfigProto(log_device_placement=True))
+sess=tf.InteractiveSession()
 model=model.Model(type=3)
 saver=tf.train.Saver()
 sess.run(tf.global_variables_initializer())
@@ -15,7 +15,9 @@ try:
     print('load from past checkpoint')
 except Exception as e:
     print(" not found checkpoint")
+print('----------------start training --------------------------')
 for i in range(settings.epoche):
+	print('epoche : '+str(i))
     last_time=time.time()
     total_loss=0
     list_file_data= os.listdir("./data_tensor/")
