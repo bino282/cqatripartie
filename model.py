@@ -34,10 +34,7 @@ class Model:
 			self.learning_rate = tf.train.exponential_decay(settings.learning_rate, self.batch * settings.batch_size, settings.decay_step, settings.decay_rate, True)
 			self.optimizer = tf.train.AdamOptimizer(self.learning_rate).minimize(self.cost, global_step = self.batch)
 		else:
-			self.accuracy=self.accuracy(self.net,self.y_true)
 			self.confusion_matrix=self.confusion_matrix(self.net,self.y_true)
-			self.precision=self.precision(self.net,self.y_true)
-			self.recall=self.recall(self.net,self.y_true)
 	
 	def build_network(self,sentence1,sentence2,sentence3,num_outputs,keep_prob = settings.dropout,training = True):
 
@@ -138,9 +135,11 @@ class Model:
 		confusion_matrix = tf.confusion_matrix(tf.argmax(y_true,dimension=1),tf.argmax(y_pred,dimension=1))
 		return confusion_matrix
 
-	def recall(self,net,y_true):
-		return self.confusion_matrix[0,0]/(self.confusion_matrix[1,0]+self.confusion_matrix[0,0])
+	def recall(self,confusion_matrix):
+		return confusion_matrix[0,0]/(self.confusion_matrix[1,0]+self.confusion_matrix[0,0])
 		
-	def precision(self,net,y_true):
-		y_pred = tf.nn.softmax(net)
-		return self.confusion_matrix[0,0]/(self.confusion_matrix[0,0]+self.confusion_matrix[0,1])
+	def precision(self,confusion_matrix):
+		return confusion_matrix[0,0]/(self.confusion_matrix[0,0]+self.confusion_matrix[0,1])
+
+	def acc(self,confusion_matrix):
+		return (confusion_matrix[0,0]+confusion_matrix[1,1])/(confusion_matrix[0,0]+confusion_matrix[1,1]+confusion_matrix[0,1]+confusion_matrix[1,0])
