@@ -6,8 +6,8 @@ import numpy as np
 import time
 import os
 from random import shuffle
-sess=tf.InteractiveSession()
-model=model.Model()
+sess=tf.InteractiveSession(config=tf.ConfigProto(log_device_placement=True))
+model=model.Model(type=3)
 saver=tf.train.Saver()
 sess.run(tf.global_variables_initializer())
 try:
@@ -26,7 +26,6 @@ for i in range(settings.epoche):
         for batch in data:
             loss,_=sess.run([model.cost,model.optimizer],feed_dict={model.sentence1:batch[0],model.sentence2:batch[1],model.sentence3:batch[2],model.y_true:batch[3]})
             total_loss+=loss
-            print("run on batch : "+str(index)+' , loss: '+str(loss))
             index+=1
     print('epoch: '+str(i+1)+', loss: '+str(total_loss/index)+' , s/epoche: '+str(time.time()-last_time))
     saver.save(sess,'./model/model.ckpt')
