@@ -136,10 +136,10 @@ class Model:
 		return confusion_matrix
 
 	def recall(self,confusion_matrix):
-		return confusion_matrix[0,0]/(self.confusion_matrix[1,0]+self.confusion_matrix[0,0])
+		return confusion_matrix[0,0]/(confusion_matrix[1,0]+confusion_matrix[0,0])
 		
 	def precision(self,confusion_matrix):
-		return confusion_matrix[0,0]/(self.confusion_matrix[0,0]+self.confusion_matrix[0,1])
+		return confusion_matrix[0,0]/(confusion_matrix[0,0]+confusion_matrix[0,1])
 
 	def acc(self,confusion_matrix):
 		return (confusion_matrix[0,0]+confusion_matrix[1,1])/(confusion_matrix[0,0]+confusion_matrix[1,1]+confusion_matrix[0,1]+confusion_matrix[1,0])
